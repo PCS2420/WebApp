@@ -91,6 +91,7 @@ app.controller('loginCtrl', function($scope, $location, $rootScope, usuarioTipoS
 		var myDataPromisse = usuarioTipoService.getUserTipo();
 		myDataPromisse.then(function(response){
 			console.log(response.data[0].tipo);
+			$rootScope.usuario = response.data[0];
 			if(response.data[0].tipo === 'Descritor'){
 			$rootScope.logged = true;
 			$location.path('/dashboard');
