@@ -126,7 +126,7 @@ app.controller('registerCtrl', function($scope, $location, userService){
 
         $scope.falha = false;
         $scope.sucesso = false;
-
+        $scope.user.tipo = "Descritor"
         $scope.dataLoading = true;
         userService.cadastraUser($scope.user)
         .then(
