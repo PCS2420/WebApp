@@ -4,11 +4,19 @@
 
 var phonecatControllers = angular.module('phonecatControllers', []);
 
-phonecatControllers.controller('PhoneListCtrl', ['$scope', 'Phone',
-  function($scope, Phone) {
+phonecatControllers.controller('PhoneListCtrl', ['$scope', 'Phone', '$location', '$rootScope', function($scope, $location, $rootScope, Phone) {
     $scope.phones = Phone.query();
     $scope.orderProp = 'age';
+	$scope.exit = function(){
+		$rootScope.logged = false;
+		$rootScope.usuario = undefined;
+		$rootScope.username = undefined;
+		$rootScope.password = undefined;
+		$location.path("/");	
+	};
+	
   }]);
+  
 
 phonecatControllers.controller('PhoneDetailCtrl', ['$scope', '$routeParams', 'Phone',
   function($scope, $routeParams, Phone) {
