@@ -9,27 +9,27 @@
 
         <div class="form-group" ng-class="{ 'has-error': myForm.name.$dirty && myForm.name.$error.required }">
             <label for="name">Nome</label>
-            <input type="text" name="name" id="name" class="form-control" ng-model="user.name" required />
+            <input type="text" name="name" id="name" class="form-control" ng-model="user.nome" required />
             <span ng-show="myForm.name.$dirty && myForm.name.$error.required" class="help-block">Campo obrigatório.</span>
         </div>
         <div class="form-group" ng-class="{ 'has-error': myForm.nusp.$dirty && myForm.nusp.$error.required }">
             <label for="nusp">Nusp</label>
-            <input type="number" name="nusp" id="nusp" class="form-control" ng-model="user.nusp" required />
+            <input type="number" name="nusp" id="nusp" class="form-control" ng-model="user.cpf" required />
             <span ng-show="myForm.nusp.$dirty && myForm.nusp.$error.required" class="help-block">Campo obrigatório.</span>
         </div>
         <div class="form-group" ng-class="{ 'has-error': myForm.course.$dirty && myForm.course.$error.required }">
             <label for="course">Curso</label>
-            <input type="text" name="course" id="course" class="form-control" ng-model="user.course" required />
+            <input type="text" name="course" id="course" class="form-control" ng-model="user.curso" required />
             <span ng-show="myForm.course.$dirty && myForm.course.$error.required" class="help-block">Campo obrigatório.</span>
         </div>
         <div class="form-group" ng-class="{ 'has-error': myForm.username.$dirty && myForm.username.$error.required }">
             <label for="username">Nome de usuário</label>
-            <input type="text" name="username" id="username" class="form-control" ng-model="user.username" required />
+            <input type="text" name="username" id="username" class="form-control" ng-model="user.login" required />
             <span ng-show="myForm.username.$dirty && myForm.username.$error.required" class="help-block">Campo obrigatório.</span>
         </div>
         <div class="form-group" ng-class="{ 'has-error': myForm.password.$dirty && myForm.password.$error.required }">
             <label for="password">Senha</label>
-            <input type="password" name="password" id="password" class="form-control" ng-model="user.password" required />
+            <input type="password" name="password" id="password" class="form-control" ng-model="user.senha" required />
             <span ng-show="myForm.password.$dirty && myForm.password.$error.required" class="help-block">Campo obrigatório.</span>
         </div>
         <div class="form-actions">

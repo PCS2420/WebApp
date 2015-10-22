@@ -68,17 +68,32 @@ app.config(function($routeProvider) {
 // Factorys!
 
 app.factory('usuarioTipoService', function($http, $rootScope){
-	var getUserTipo = function(){
-		return $http.get("http://localhost:1337/usuario?login=" + $rootScope.username + "&senha=" + $rootScope.password).success(function(response){
+	var getUserTipo = function(user, senha){
+		return $http.get("http://localhost:1337/usuario?login=" + user + "&senha=" + senha)
+		.success(function(response){
 			return response[0].tipo;
 		});
 	};
 	return { getUserTipo: getUserTipo };
 });
 
-app.factory('userService', function($resource){
-    // return $resource('http://jsonplaceholder.typicode.com/users/:user', {user: '@user'} ); // URL  teste
-    return $resource('api/users/:user', {user: '@user'} );
+app.service('userService', function userService($http, $q){
+
+	var userService = this;
+
+	userService.cadastraUser = function(user){
+		var defer = $q.defer();
+		return $http.post("http://localhost:1337/usuario/cadastro", user)
+		.success(function(response){
+			console.log(response);
+			defer.resolve(response);
+		})
+		.error(function(error){
+			console.log(error);
+			defer.reject(error);
+		})
+	return defer.promise;
+	}
 });
 
 // End Factorys!
@@ -86,11 +101,9 @@ app.factory('userService', function($resource){
 
 app.controller('loginCtrl', function($scope, $location, $rootScope, usuarioTipoService){
 	$scope.submit = function(){
-		$rootScope.username = $scope.username
-		$rootScope.password = $scope.password
-		var myDataPromisse = usuarioTipoService.getUserTipo();
+		var myDataPromisse = usuarioTipoService.getUserTipo($scope.username, $scope.password);
 		myDataPromisse.then(function(response){
-			console.log(response.data[0].tipo);
+			//console.log(response.data[0].tipo);
 			$rootScope.usuario = response.data[0];
 			if(response.data[0].tipo === 'Descritor'){
 			$rootScope.logged = true;
@@ -111,26 +124,19 @@ app.controller('registerCtrl', function($scope, $location, userService){
 
     $scope.register = function() {
 
-        $scope.json = angular.toJson($scope.user);
-
-
         $scope.falha = false;
         $scope.sucesso = false;
 
         $scope.dataLoading = true;
-        userService.save($scope.json).$promise
+        userService.cadastraUser($scope.user)
         .then(
-            function(data){
+            function(response){
                 $scope.sucesso = true;
                 $location.path('/login');
             },
-            function(cause){
-                $scope.causa = angular.toJson(cause);
-                $scope.dataLoading = false;
-                $scope.falha = true;
-            }
-            );
-    }
+            function(error){
+        })
+    };
 
 });
 
